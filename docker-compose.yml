@@ -1,0 +1,11 @@
+services:
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: bancoias-rabbitmq
+    ports:
+      - "5672:5672"    # Puerto estándar de mensajería AMQP
+      - "15672:15672"  # Consola web de administración (http://localhost:15672, user: guest / pass: guest)
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    restart: unless-stopped
