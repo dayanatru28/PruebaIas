@@ -1,0 +1,35 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: bancoias-preapproved-service
+  r2dbc:
+    url: r2dbc:h2:mem:///bancoias_db;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password: ""
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema.sql
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    listener:
+      simple:
+        auto-startup: false
+    template:
+      retry:
+        enabled: false
+
+rabbitmq:
+  exchange: bancoias.direct
+  queue: preapproved.usage.queue
+  routing-key: preapproved.usage.authorized
+
+logging:
+  level:
+    root: INFO
+    com.bancoias.preapproved: DEBUG
